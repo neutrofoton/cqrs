@@ -68,13 +68,13 @@ Including all the projects in <code>Social.sln</code>
 ```
 dotnet sln Social.sln add CQRS.Core/CQRS.Core.csproj
 
-dotnet sln Social.sln add Social.Command/Social.Command.Api/Social.Command.Api.csproj
 dotnet sln Social.sln add Social.Command/Social.Command.Domain/Social.Command.Domain.csproj
 dotnet sln Social.sln add Social.Command/Social.Command.Infra/Social.Command.Infra.csproj
+dotnet sln Social.sln add Social.Command/Social.Command.Api/Social.Command.Api.csproj
 
-dotnet sln Social.sln add Social.Query/Social.Query.Api/Social.Query.Api.csproj
 dotnet sln Social.sln add Social.Query/Social.Query.Domain/Social.Query.Domain.csproj
 dotnet sln Social.sln add Social.Query/Social.Query.Infra/Social.Query.Infra.csproj
+dotnet sln Social.sln add Social.Query/Social.Query.Api/Social.Query.Api.csproj
 ```
 
 Add project dependency reference in <code>Social.Command</code>
