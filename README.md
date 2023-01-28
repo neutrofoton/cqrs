@@ -1,9 +1,10 @@
-# CQRS
+# Infrastructure
 
-## Create CQRS network
-    ```
-    docker network create --attachable -d bridge cqrs-network
-    ```
+## Setting up docker network
+
+```
+docker network create --attachable -d bridge cqrs-network
+```
 
 ## Installing Apache Kafka
 In this part we will install Kafka using <code>docker compose</code> that contains 2 services: <code>zookeeper</code> and <code>kafka</code>.
@@ -37,5 +38,42 @@ docker run -d --name sql-container \
 -p 1433:1433 mcr.microsoft.com/mssql/server:2017-latest-ubuntu 
 ```
 
+# Project Setup
+
+```
+dotnet new sln --name Social.CQRS
+```
+
+```
+dotnet new classlib -o CQRS.Core
+```
+
+```
+dotnet new classlib -o Social.Command.Domain
+dotnet new classlib -o Social.Command.Infra
+dotnet new webapi -o Social.Command.Api
+```
+
+```
+dotnet new classlib -o Social.Query.Domain
+dotnet new classlib -o Social.Query.Infra
+dotnet new webapi -o Social.Query.Api
+```
+
+```
+dotnet sln Social.sln add CQRS.Core/CQRS.Core.csproj
+
+dotnet sln Social.sln add Social.Command/Social.Command.Api/Social.Command.Api.csproj
+dotnet sln Social.sln add Social.Command/Social.Command.Domain/Social.Command.Domain.csproj
+dotnet sln Social.sln add Social.Command/Social.Command.Infra/Social.Command.Infra.csproj
+
+dotnet sln Social.sln add Social.Query/Social.Query.Api/Social.Command.Api.csproj
+dotnet sln Social.sln add Social.Query/Social.Query.Domain/Social.Command.Domain.csproj
+dotnet sln Social.sln add Social.Query/Social.Query.Infra/Social.Command.Infra.csproj
+```
+
+```
+dotnet add Social.Command/Social.Command.Api/Social.Command.Api.csproj reference CQRS.Core/CQRS.Core.csproj
+```
 # Reference
 1. https://hub.docker.com/_/microsoft-mssql-server
