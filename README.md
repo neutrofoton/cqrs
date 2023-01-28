@@ -41,7 +41,7 @@ docker run -d --name sql-container \
 # Project Setup
 
 ```
-dotnet new sln --name Social.CQRS
+dotnet new sln --name Social
 ```
 
 ```
