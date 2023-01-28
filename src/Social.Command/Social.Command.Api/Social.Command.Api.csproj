@@ -13,6 +13,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\CQRS.Core\CQRS.Core.csproj" />
+    <ProjectReference Include="..\Social.Command.Domain\Social.Command.Domain.csproj" />
+    <ProjectReference Include="..\Social.Command.Infra\Social.Command.Infra.csproj" />
   </ItemGroup>
 
 </Project>
