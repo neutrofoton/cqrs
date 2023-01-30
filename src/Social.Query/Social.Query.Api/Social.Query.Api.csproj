@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
@@ -15,6 +15,7 @@
     <ProjectReference Include="..\..\CQRS.Core\CQRS.Core.csproj" />
     <ProjectReference Include="..\Social.Query.Domain\Social.Query.Domain.csproj" />
     <ProjectReference Include="..\Social.Query.Infra\Social.Query.Infra.csproj" />
+    <ProjectReference Include="..\..\Social.Shared\Social.Shared.csproj" />
   </ItemGroup>
 
 </Project>

@@ -50,6 +50,11 @@ Creating <code>CQRS.Core</code> class library
 dotnet new classlib -o CQRS.Core
 ```
 
+Creating <code>Social.Shared</code> project structure
+```
+dotnet new classlib -o Social.Shared
+```
+
 Creating <code>Social.Command</code> project structure
 ```
 dotnet new classlib -o Social.Command.Domain
@@ -68,6 +73,8 @@ Including all the projects in <code>Social.sln</code>
 ```
 dotnet sln Social.sln add CQRS.Core/CQRS.Core.csproj
 
+dotnet sln Social.sln add Social.Shared/Social.Shared.csproj
+
 dotnet sln Social.sln add Social.Command/Social.Command.Domain/Social.Command.Domain.csproj
 dotnet sln Social.sln add Social.Command/Social.Command.Infra/Social.Command.Infra.csproj
 dotnet sln Social.sln add Social.Command/Social.Command.Api/Social.Command.Api.csproj
@@ -75,6 +82,11 @@ dotnet sln Social.sln add Social.Command/Social.Command.Api/Social.Command.Api.c
 dotnet sln Social.sln add Social.Query/Social.Query.Domain/Social.Query.Domain.csproj
 dotnet sln Social.sln add Social.Query/Social.Query.Infra/Social.Query.Infra.csproj
 dotnet sln Social.sln add Social.Query/Social.Query.Api/Social.Query.Api.csproj
+```
+
+Add project dependency reference in <code>Social.Shared</code>
+```
+dotnet add Social.Shared/Social.Shared.csproj reference CQRS.Core/CQRS.Core.csproj
 ```
 
 Add project dependency reference in <code>Social.Command</code>
@@ -85,6 +97,7 @@ dotnet add Social.Command/Social.Command.Infra/Social.Command.Infra.csproj refer
 dotnet add Social.Command/Social.Command.Infra/Social.Command.Infra.csproj reference Social.Command/Social.Command.Domain/Social.Command.Domain.csproj
 
 dotnet add Social.Command/Social.Command.Api/Social.Command.Api.csproj reference CQRS.Core/CQRS.Core.csproj
+dotnet add Social.Command/Social.Command.Api/Social.Command.Api.csproj reference Social.Shared/Social.Shared.csproj
 dotnet add Social.Command/Social.Command.Api/Social.Command.Api.csproj reference Social.Command/Social.Command.Domain/Social.Command.Domain.csproj
 dotnet add Social.Command/Social.Command.Api/Social.Command.Api.csproj reference Social.Command/Social.Command.Infra/Social.Command.Infra.csproj
 ```
@@ -97,6 +110,7 @@ dotnet add Social.Query/Social.Query.Infra/Social.Query.Infra.csproj reference C
 dotnet add Social.Query/Social.Query.Infra/Social.Query.Infra.csproj reference Social.Query/Social.Query.Domain/Social.Query.Domain.csproj
 
 dotnet add Social.Query/Social.Query.Api/Social.Query.Api.csproj reference CQRS.Core/CQRS.Core.csproj
+dotnet add Social.Query/Social.Query.Api/Social.Query.Api.csproj reference Social.Shared/Social.Shared.csproj
 dotnet add Social.Query/Social.Query.Api/Social.Query.Api.csproj reference Social.Query/Social.Query.Domain/Social.Query.Domain.csproj
 dotnet add Social.Query/Social.Query.Api/Social.Query.Api.csproj reference Social.Query/Social.Query.Infra/Social.Query.Infra.csproj
 ```
