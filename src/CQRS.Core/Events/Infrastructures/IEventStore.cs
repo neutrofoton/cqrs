@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CQRS.Core.Events;
 
-namespace CQRS.Core.Infrastructures
+namespace CQRS.Core.Events.Infrastructures
 {
     public interface IEventStore
     {

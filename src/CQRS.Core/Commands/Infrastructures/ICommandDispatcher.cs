@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CQRS.Core.Commands;
 
-namespace CQRS.Core.Infrastructures
+namespace CQRS.Core.Commands.Infrastructures
 {
     public interface ICommandDispatcher
     {

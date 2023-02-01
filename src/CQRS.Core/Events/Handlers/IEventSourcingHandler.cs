@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using CQRS.Core.Domains; 
 
 
-namespace CQRS.Core.Handlers
+namespace CQRS.Core.Events.Handlers
 {
     public interface IEventSourcingHandler<T>
     {

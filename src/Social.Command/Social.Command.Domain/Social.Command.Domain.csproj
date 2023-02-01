@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\CQRS.Core\CQRS.Core.csproj" />
+    <ProjectReference Include="..\..\Social.Shared\Social.Shared.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

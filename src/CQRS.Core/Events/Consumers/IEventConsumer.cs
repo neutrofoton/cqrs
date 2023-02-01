@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CQRS.Core.Consumers
+namespace CQRS.Core.Events.Consumers
 {
     public interface IEventConsumer
     {

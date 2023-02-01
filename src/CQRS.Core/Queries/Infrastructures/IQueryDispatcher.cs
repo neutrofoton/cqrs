@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CQRS.Core.Queries;
 
-namespace CQRS.Core.Infrastructures
+namespace CQRS.Core.Queries.Infrastructures
 {
     public interface IQueryDispatcher<TEntity>
     {
