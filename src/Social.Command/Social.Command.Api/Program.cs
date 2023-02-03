@@ -1,6 +1,38 @@
+using Confluent.Kafka;
+using CQRS.Core.Domains;
+using CQRS.Core.Events;
+using CQRS.Core.Events.Handlers;
+using CQRS.Core.Events.Infrastructures;
+using CQRS.Core.Events.Producers;
+using CQRS.Core.Kafka.Events.Producers;
+using CQRS.Core.MongoDB.Config;
+using MongoDB.Bson.Serialization;
+using Social.Command.Api.Handlers;
+using Social.Command.Domain.Aggregates;
+using Social.Command.Infra.Repositories;
+using Social.Command.Infra.Stores;
+using Social.Shared.Events;
+
 var builder = WebApplication.CreateBuilder(args);
 
+
+BsonClassMap.RegisterClassMap<BaseEvent>();
+BsonClassMap.RegisterClassMap<PostCreatedEvent>();
+BsonClassMap.RegisterClassMap<MessageUpdatedEvent>();
+BsonClassMap.RegisterClassMap<PostLikedEvent>();
+BsonClassMap.RegisterClassMap<CommentAddedEvent>();
+BsonClassMap.RegisterClassMap<CommentUpdatedEvent>();
+BsonClassMap.RegisterClassMap<CommentRemovedEvent>();
+BsonClassMap.RegisterClassMap<PostRemovedEvent>();
+
 // Add services to the container.
+builder.Services.Configure<MongoDbConfig>(builder.Configuration.GetSection(nameof(MongoDbConfig)));
+builder.Services.Configure<ProducerConfig>(builder.Configuration.GetSection(nameof(ProducerConfig)));
+builder.Services.AddScoped<IEventStoreRepository, EventStoreRepository>();
+builder.Services.AddScoped<IEventProducer, EventProducer>();
+builder.Services.AddScoped<IEventStore<PostAggregate,Guid>, EventStore>();
+builder.Services.AddScoped<IEventSourcingHandler<PostAggregate,Guid>, EventSourcingHandler<PostAggregate,Guid>>();
+builder.Services.AddScoped<ICommandHandler, CommandHandler>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

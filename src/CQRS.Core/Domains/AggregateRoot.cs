@@ -6,17 +6,21 @@ using CQRS.Core.Events;
 
 namespace CQRS.Core.Domains
 {
-    public abstract class AggregateRoot
+    public abstract class AggregateRoot<TId>
     {
-        protected Guid _id;
+        protected TId _id;
+        private bool _active;
+        
         private readonly List<BaseEvent> _changes = new();
 
-        public Guid Id
+        public TId Id
         {
             get { return _id; }
         }
 
         public int Version { get; set; } = -1;
+        
+        public bool Active { get => _active; set => _active = value; }
 
         public IEnumerable<BaseEvent> GetUncommittedChanges()
         {

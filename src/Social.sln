@@ -23,6 +23,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Social.Query.Api", "Social.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Social.Shared", "Social.Shared\Social.Shared.csproj", "{2DA41E6E-7117-4B3A-8975-6C95112EB172}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRS.Core.MongoDB", "CQRS.Core.MongoDB\CQRS.Core.MongoDB.csproj", "{CF863510-570F-4BDF-B16C-1C01D4D12AA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRS.Core.Kafka", "CQRS.Core.Kafka\CQRS.Core.Kafka.csproj", "{9BA5CAA7-2BCB-4DFF-9710-CD0EC2AD43F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRS.Core.SqlServer", "CQRS.Core.SqlServer\CQRS.Core.SqlServer.csproj", "{22344DFE-D6A2-42EB-970C-3D2BA6C1D435}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +70,18 @@ Global
 		{2DA41E6E-7117-4B3A-8975-6C95112EB172}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DA41E6E-7117-4B3A-8975-6C95112EB172}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DA41E6E-7117-4B3A-8975-6C95112EB172}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF863510-570F-4BDF-B16C-1C01D4D12AA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF863510-570F-4BDF-B16C-1C01D4D12AA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF863510-570F-4BDF-B16C-1C01D4D12AA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF863510-570F-4BDF-B16C-1C01D4D12AA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BA5CAA7-2BCB-4DFF-9710-CD0EC2AD43F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BA5CAA7-2BCB-4DFF-9710-CD0EC2AD43F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BA5CAA7-2BCB-4DFF-9710-CD0EC2AD43F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BA5CAA7-2BCB-4DFF-9710-CD0EC2AD43F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22344DFE-D6A2-42EB-970C-3D2BA6C1D435}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22344DFE-D6A2-42EB-970C-3D2BA6C1D435}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22344DFE-D6A2-42EB-970C-3D2BA6C1D435}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22344DFE-D6A2-42EB-970C-3D2BA6C1D435}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{43D13DD6-5045-457C-A259-20CC33C0FBA4} = {DD8EDF8D-BFFE-42EA-9629-6C434D95F292}

@@ -1,9 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\..\CQRS.Core\CQRS.Core.csproj" />
-    <ProjectReference Include="..\..\CQRS.Core.MongoDB\CQRS.Core.MongoDB.csproj" />
-    <ProjectReference Include="..\Social.Command.Domain\Social.Command.Domain.csproj" />
+    <ProjectReference Include="..\CQRS.Core\CQRS.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

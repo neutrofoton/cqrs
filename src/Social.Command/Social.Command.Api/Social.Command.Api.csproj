@@ -7,12 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Confluent.Kafka" Version="2.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\CQRS.Core\CQRS.Core.csproj" />
+    <ProjectReference Include="..\..\CQRS.Core.MongoDB\CQRS.Core.MongoDB.csproj" />
+    <ProjectReference Include="..\..\CQRS.Core.Kafka\CQRS.Core.Kafka.csproj" />
     <ProjectReference Include="..\Social.Command.Domain\Social.Command.Domain.csproj" />
     <ProjectReference Include="..\Social.Command.Infra\Social.Command.Infra.csproj" />
     <ProjectReference Include="..\..\Social.Shared\Social.Shared.csproj" />

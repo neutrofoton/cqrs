@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Social.Command.Infra.Config
+namespace CQRS.Core.MongoDB.Config
 {
     public class MongoDbConfig
     {

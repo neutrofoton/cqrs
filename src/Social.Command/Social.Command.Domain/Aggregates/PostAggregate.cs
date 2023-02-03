@@ -7,13 +7,11 @@ using Social.Shared.Events;
 
 namespace Social.Command.Domain.Aggregates
 {
-    public class PostAggregate : AggregateRoot
+    public class PostAggregate : AggregateRoot<Guid>
     {
-        private bool _active;
         private string _author;
         private readonly Dictionary<Guid, Tuple<string, string>> _comments = new();
 
-        public bool Active { get => _active; set => _active = value; }
 
         public PostAggregate()
         {
@@ -33,13 +31,13 @@ namespace Social.Command.Domain.Aggregates
         public void Apply(PostCreatedEvent @event)
         {
             _id = @event.Id;
-            _active = true;
+            Active = true;
             _author = @event.Author;
         }
 
         public void EditMessage(string message)
         {
-            if (!_active)
+            if (!Active)
             {
                 throw new InvalidOperationException("You cannot edit the message of an inactive post!");
             }
@@ -63,7 +61,7 @@ namespace Social.Command.Domain.Aggregates
 
         public void LikePost()
         {
-            if (!_active)
+            if (!Active)
             {
                 throw new InvalidOperationException("You cannot like an inactive post!");
             }
@@ -81,7 +79,7 @@ namespace Social.Command.Domain.Aggregates
 
         public void AddComment(string comment, string username)
         {
-            if (!_active)
+            if (!Active)
             {
                 throw new InvalidOperationException("You cannot add a comment to an inactive post!");
             }
@@ -109,7 +107,7 @@ namespace Social.Command.Domain.Aggregates
 
         public void EditComment(Guid commentId, string comment, string username)
         {
-            if (!_active)
+            if (!Active)
             {
                 throw new InvalidOperationException("You cannot edit a comment of an inactive post!");
             }
@@ -137,7 +135,7 @@ namespace Social.Command.Domain.Aggregates
 
         public void RemoveComment(Guid commentId, string username)
         {
-            if (!_active)
+            if (!Active)
             {
                 throw new InvalidOperationException("You cannot remove a comment of an inactive post!");
             }
@@ -162,7 +160,7 @@ namespace Social.Command.Domain.Aggregates
 
         public void DeletePost(string username)
         {
-            if (!_active)
+            if (!Active)
             {
                 throw new InvalidOperationException("The post has already been removed!");
             }
@@ -178,7 +176,7 @@ namespace Social.Command.Domain.Aggregates
         public void Apply(PostRemovedEvent @event)
         {
             _id = @event.Id;
-            _active = false;
+            Active = false;
         }
     }
 }

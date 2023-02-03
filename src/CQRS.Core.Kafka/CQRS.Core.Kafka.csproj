@@ -1,12 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\..\CQRS.Core\CQRS.Core.csproj" />
-    <ProjectReference Include="..\..\CQRS.Core.MongoDB\CQRS.Core.MongoDB.csproj" />
-    <ProjectReference Include="..\Social.Command.Domain\Social.Command.Domain.csproj" />
+    <ProjectReference Include="..\CQRS.Core\CQRS.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Confluent.Kafka" Version="2.0.2" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="7.0.0" />
   </ItemGroup>
 

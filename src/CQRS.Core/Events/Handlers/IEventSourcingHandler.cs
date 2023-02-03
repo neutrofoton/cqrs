@@ -7,10 +7,10 @@ using CQRS.Core.Domains;
 
 namespace CQRS.Core.Events.Handlers
 {
-    public interface IEventSourcingHandler<T>
+    public interface IEventSourcingHandler<TAggregateRoot,TId> where TAggregateRoot : AggregateRoot<TId>
     {
-        Task SaveAsync(AggregateRoot aggregate);
-        Task<T> GetByIdAsync(Guid aggregateId);
+        Task SaveAsync(TAggregateRoot aggregate);
+        Task<TAggregateRoot> GetByIdAsync(TId aggregateId);
         Task RepublishEventsAsync();
     }
 }

@@ -92,6 +92,7 @@ dotnet add Social.Shared/Social.Shared.csproj reference CQRS.Core/CQRS.Core.cspr
 Add project dependency reference in <code>Social.Command</code>
 ```
 dotnet add Social.Command/Social.Command.Domain/Social.Command.Domain.csproj reference CQRS.Core/CQRS.Core.csproj
+dotnet add Social.Command/Social.Command.Domain/Social.Command.Domain.csproj reference Social.Shared/Social.Shared.csproj
 
 dotnet add Social.Command/Social.Command.Infra/Social.Command.Infra.csproj reference CQRS.Core/CQRS.Core.csproj
 dotnet add Social.Command/Social.Command.Infra/Social.Command.Infra.csproj reference Social.Command/Social.Command.Domain/Social.Command.Domain.csproj
