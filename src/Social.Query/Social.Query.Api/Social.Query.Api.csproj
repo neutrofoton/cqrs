@@ -21,6 +21,7 @@
   </ItemGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\..\CQRS.Core.Kafka\CQRS.Core.Kafka.csproj" />
     <ProjectReference Include="..\..\CQRS.Core\CQRS.Core.csproj" />
     <ProjectReference Include="..\Social.Query.Domain\Social.Query.Domain.csproj" />
     <ProjectReference Include="..\Social.Query.Infra\Social.Query.Infra.csproj" />

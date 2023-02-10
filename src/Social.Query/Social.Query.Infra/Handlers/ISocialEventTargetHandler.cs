@@ -2,11 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CQRS.Core.Events.Handlers;
 using Social.Shared.Events;
 
 namespace Social.Query.Infra.Handlers
 {
-    public interface IEventHandler
+    public interface ISocialEventTargetHandler : IEventTargetHandler
     {
         Task On(PostCreatedEvent @event);
         Task On(MessageUpdatedEvent @event);

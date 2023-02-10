@@ -6,10 +6,10 @@ using CQRS.Core.Events;
 
 namespace CQRS.Core.Domains
 {
-    public interface IEventStoreRepository
+    public interface IEventStoreRepository<TId>
     {
-        Task SaveAsync(EventModel @event);
-        Task<List<EventModel>> FindByAggregateId(Guid aggregateId);
-        Task<List<EventModel>> FindAllAsync();
+        Task SaveAsync(EventModel<TId> @event);
+        Task<List<EventModel<TId>>> FindByAggregateId(TId aggregateId);
+        Task<List<EventModel<TId>>> FindAllAsync();
     }
 }

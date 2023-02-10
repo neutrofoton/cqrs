@@ -1,16 +1,19 @@
 
 using Confluent.Kafka;
+using CQRS.Core.Events;
 using CQRS.Core.Events.Consumers;
+using CQRS.Core.Kafka.Events.Consumers;
 using CQRS.Core.Queries.Infrastructures;
 using Microsoft.EntityFrameworkCore;
 using Social.Query.Api.Handlers;
 using Social.Query.Api.Queries;
 using Social.Query.Domain.Entities;
 using Social.Query.Domain.Repositories;
-using Social.Query.Infra.Consumers;
+using Social.Query.Infra.Converters;
 using Social.Query.Infra.DataAccess;
 using Social.Query.Infra.Dispatcher;
 using Social.Query.Infra.Repositories;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,13 +40,15 @@ dataContext.Database.EnsureCreated();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<IQueryHandler, QueryHandler>();
-builder.Services.AddScoped<Social.Query.Infra.Handlers.IEventHandler, Social.Query.Infra.Handlers.EventHandler>();
+builder.Services.AddScoped<Social.Query.Infra.Handlers.ISocialEventTargetHandler, Social.Query.Infra.Handlers.SocialEventTargetHandler>();
 builder.Services.Configure<ConsumerConfig>(builder.Configuration.GetSection(nameof(ConsumerConfig)));
-builder.Services.AddScoped<IEventConsumer, EventConsumer>();
+builder.Services.AddScoped<IEventConsumer, KafkaEventConsumer>();
+
+builder.Services.AddSingleton<JsonConverter<BaseEvent>>(new EventJsonConverter());
 
 // register query handler methods
 var queryHandler = builder.Services.BuildServiceProvider().GetRequiredService<IQueryHandler>();
-var dispatcher = new QueryDispatcher();
+var dispatcher = new SocialQueryDispatcher();
 dispatcher.RegisterHandler<FindAllPostsQuery>(queryHandler.HandleAsync);
 dispatcher.RegisterHandler<FindPostByIdQuery>(queryHandler.HandleAsync);
 dispatcher.RegisterHandler<FindPostsByAuthorQuery>(queryHandler.HandleAsync);

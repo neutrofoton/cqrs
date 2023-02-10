@@ -8,12 +8,12 @@ using Social.Shared.Events;
 
 namespace Social.Query.Infra.Handlers
 {
-    public class EventHandler : IEventHandler
+    public class SocialEventTargetHandler : ISocialEventTargetHandler
     {
         private readonly IPostRepository _postRepository;
         private readonly ICommentRepository _commentRepository;
 
-        public EventHandler(IPostRepository postRepository, ICommentRepository commentRepository)
+        public SocialEventTargetHandler(IPostRepository postRepository, ICommentRepository commentRepository)
         {
             _postRepository = postRepository;
             _commentRepository = commentRepository;

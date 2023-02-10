@@ -1,6 +1,7 @@
 using Confluent.Kafka;
 using CQRS.Core.Domains;
 using CQRS.Core.Events;
+using CQRS.Core.Events.Config;
 using CQRS.Core.Events.Handlers;
 using CQRS.Core.Events.Infrastructures;
 using CQRS.Core.Events.Producers;
@@ -28,9 +29,18 @@ BsonClassMap.RegisterClassMap<PostRemovedEvent>();
 // Add services to the container.
 builder.Services.Configure<MongoDbConfig>(builder.Configuration.GetSection(nameof(MongoDbConfig)));
 builder.Services.Configure<ProducerConfig>(builder.Configuration.GetSection(nameof(ProducerConfig)));
-builder.Services.AddScoped<IEventStoreRepository, EventStoreRepository>();
-builder.Services.AddScoped<IEventProducer, EventProducer>();
-builder.Services.AddScoped<IEventStore<PostAggregate,Guid>, EventStore>();
+builder.Services.AddSingleton(serviceProvider =>
+{
+    var topic = Environment.GetEnvironmentVariable("KAFKA_TOPIC");
+    return new EventBusConfig()
+    {
+        Topic = topic,
+    };
+});
+
+builder.Services.AddScoped<ISocialEventStoreRepository, SocialEventStoreRepository>();
+builder.Services.AddScoped<IEventProducer, KafkaEventProducer>();
+builder.Services.AddScoped<IEventStore<PostAggregate,Guid>, SocialEventStore>();
 builder.Services.AddScoped<IEventSourcingHandler<PostAggregate,Guid>, EventSourcingHandler<PostAggregate,Guid>>();
 builder.Services.AddScoped<ICommandHandler, CommandHandler>();
 

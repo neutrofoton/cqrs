@@ -1,31 +1,33 @@
+﻿using Confluent.Kafka;
+using CQRS.Core.Events.Consumers;
+using CQRS.Core.Events;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Confluent.Kafka;
-using CQRS.Core.Events;
-using CQRS.Core.Events.Consumers;
-using Microsoft.Extensions.Options;
-using Social.Query.Infra.Converters;
-using Social.Query.Infra.Handlers;
+using CQRS.Core.Events.Handlers;
+using System.Text.Json.Serialization;
 
-namespace Social.Query.Infra.Consumers
+namespace CQRS.Core.Kafka.Events.Consumers
 {
-    public class EventConsumer : IEventConsumer
+    public class KafkaEventConsumer : EventConsumer
     {
         private readonly ConsumerConfig _config;
-        private readonly IEventHandler _eventHandler;
-
-        public EventConsumer(
+        private readonly JsonConverter<BaseEvent> _jsonConverter;
+        public KafkaEventConsumer(
+            IEventTargetHandler eventHandler,
             IOptions<ConsumerConfig> config,
-            IEventHandler eventHandler)
+            JsonConverter<BaseEvent> jsonConverter
+            ) : base(eventHandler)
         {
             _config = config.Value;
-            _eventHandler = eventHandler;
+            _jsonConverter = jsonConverter;
         }
 
-        public void Consume(string topic)
+        public override void Consume(string topic)
         {
             using var consumer = new ConsumerBuilder<string, string>(_config)
                     .SetKeyDeserializer(Deserializers.Utf8)
@@ -40,16 +42,17 @@ namespace Social.Query.Infra.Consumers
 
                 if (consumeResult?.Message == null) continue;
 
-                var options = new JsonSerializerOptions { Converters = { new EventJsonConverter() } };
+                //var options = new JsonSerializerOptions { Converters = { new EventJsonConverter() } };
+                var options = new JsonSerializerOptions { Converters = { _jsonConverter } };
                 var @event = JsonSerializer.Deserialize<BaseEvent>(consumeResult.Message.Value, options);
-                var handlerMethod = _eventHandler.GetType().GetMethod("On", new Type[] { @event.GetType() });
+                var handlerMethod = EventHandler.GetType().GetMethod("On", new Type[] { @event.GetType() });
 
                 if (handlerMethod == null)
                 {
                     throw new ArgumentNullException(nameof(handlerMethod), "Could not find event handler method!");
                 }
 
-                handlerMethod.Invoke(_eventHandler, new object[] { @event });
+                handlerMethod.Invoke(EventHandler, new object[] { @event });
                 consumer.Commit(consumeResult);
             }
         }
