@@ -33,7 +33,7 @@ namespace CQRS.Core.MongoDB.Command.Infra.Repositories
             if (aggregateId == null)
                 return null;
 
-            return await _eventStoreCollection.Find(x => aggregateId.Equals(x.AggregateIdentifier)).ToListAsync().ConfigureAwait(false);
+            return await _eventStoreCollection.Find(x => x.AggregateIdentifier.Equals(aggregateId)).ToListAsync().ConfigureAwait(false);
         }
 
         public async Task SaveAsync(EventModel<TId> @event)

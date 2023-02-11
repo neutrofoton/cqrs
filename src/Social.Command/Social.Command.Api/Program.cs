@@ -1,4 +1,5 @@
 using Confluent.Kafka;
+using CQRS.Core.Commands.Infrastructures;
 using CQRS.Core.Domains;
 using CQRS.Core.Events;
 using CQRS.Core.Events.Config;
@@ -8,6 +9,7 @@ using CQRS.Core.Events.Producers;
 using CQRS.Core.Kafka.Events.Producers;
 using CQRS.Core.MongoDB.Config;
 using MongoDB.Bson.Serialization;
+using Social.Command.Api.Commands;
 using Social.Command.Api.Handlers;
 using Social.Command.Domain.Aggregates;
 using Social.Command.Infra.Repositories;
@@ -15,6 +17,15 @@ using Social.Command.Infra.Stores;
 using Social.Shared.Events;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSingleton(serviceProvider =>
+{
+    var topic = Environment.GetEnvironmentVariable("KAFKA_TOPIC");
+    return new EventBusConfig()
+    {
+        Topic = topic,
+    };
+});
 
 
 BsonClassMap.RegisterClassMap<BaseEvent>();
@@ -29,20 +40,27 @@ BsonClassMap.RegisterClassMap<PostRemovedEvent>();
 // Add services to the container.
 builder.Services.Configure<MongoDbConfig>(builder.Configuration.GetSection(nameof(MongoDbConfig)));
 builder.Services.Configure<ProducerConfig>(builder.Configuration.GetSection(nameof(ProducerConfig)));
-builder.Services.AddSingleton(serviceProvider =>
-{
-    var topic = Environment.GetEnvironmentVariable("KAFKA_TOPIC");
-    return new EventBusConfig()
-    {
-        Topic = topic,
-    };
-});
+
 
 builder.Services.AddScoped<ISocialEventStoreRepository, SocialEventStoreRepository>();
 builder.Services.AddScoped<IEventProducer, KafkaEventProducer>();
 builder.Services.AddScoped<IEventStore<PostAggregate,Guid>, SocialEventStore>();
 builder.Services.AddScoped<IEventSourcingHandler<PostAggregate,Guid>, EventSourcingHandler<PostAggregate,Guid>>();
 builder.Services.AddScoped<ICommandHandler, CommandHandler>();
+
+
+// register command handler methods
+var commandHandler = builder.Services.BuildServiceProvider().GetRequiredService<ICommandHandler>();
+var dispatcher = new CommandDispatcher();
+dispatcher.RegisterHandler<NewPostCommand>(commandHandler.HandleAsync);
+dispatcher.RegisterHandler<EditMessageCommand>(commandHandler.HandleAsync);
+dispatcher.RegisterHandler<LikePostCommand>(commandHandler.HandleAsync);
+dispatcher.RegisterHandler<AddCommentCommand>(commandHandler.HandleAsync);
+dispatcher.RegisterHandler<EditCommentCommand>(commandHandler.HandleAsync);
+dispatcher.RegisterHandler<RemoveCommentCommand>(commandHandler.HandleAsync);
+dispatcher.RegisterHandler<DeletePostCommand>(commandHandler.HandleAsync);
+dispatcher.RegisterHandler<RestoreReadDbCommand>(commandHandler.HandleAsync);
+builder.Services.AddSingleton<ICommandDispatcher>(_ => dispatcher);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

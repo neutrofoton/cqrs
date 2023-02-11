@@ -9,13 +9,14 @@ using CQRS.Core.Events.Infrastructures;
 using CQRS.Core.Events.Producers;
 using CQRS.Core.Exceptions;
 using Social.Command.Domain.Aggregates;
+using Social.Command.Infra.Repositories;
 
 namespace Social.Command.Infra.Stores
 {
     public class SocialEventStore : EventStore<PostAggregate, Guid>, IEventStore<PostAggregate, Guid>
     {
 
-        public SocialEventStore(EventBusConfig eventBusConfig, IEventStoreRepository<Guid> eventStoreRepository, IEventProducer eventProducer) : base(eventBusConfig, eventStoreRepository, eventProducer) { }
+        public SocialEventStore(EventBusConfig eventBusConfig, ISocialEventStoreRepository eventStoreRepository, IEventProducer eventProducer) : base(eventBusConfig, eventStoreRepository, eventProducer) { }
 
     }
 }

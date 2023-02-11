@@ -28,6 +28,21 @@ services:
     depends_on:
       - zookeeper
 
+  kafkamagic: #https://www.kafkamagic.com/start/
+    container_name: cqrs_kafkamagic
+    image: "digitsy/kafka-magic"
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - $HOME/docker/volume/kafkamagic/config:/config
+    environment:
+      KMAGIC_ALLOW_TOPIC_DELETE: "true"
+      KMAGIC_ALLOW_SCHEMA_DELETE: "true"
+      KMAGIC_CONFIG_STORE_TYPE: "file"
+      KMAGIC_CONFIG_STORE_CONNECTION: "Data Source=/config/KafkaMagicConfig.db;"
+      KMAGIC_CONFIG_ENCRYPTION_KEY: "cqrs"
+
   mongodb:
     container_name: cqrs_mongodb
     image: mongo:latest
