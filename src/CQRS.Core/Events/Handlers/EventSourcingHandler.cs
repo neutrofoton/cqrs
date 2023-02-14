@@ -51,7 +51,6 @@ namespace CQRS.Core.Events.Handlers
 
                 foreach (var @event in events)
                 {
-                    //var topic = Environment.GetEnvironmentVariable("KAFKA_TOPIC");
                     await eventProducer.ProduceAsync(eventBusConfig.Topic, @event);
                 }
             }

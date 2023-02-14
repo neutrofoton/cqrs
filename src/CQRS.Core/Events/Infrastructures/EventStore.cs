@@ -62,7 +62,7 @@ namespace CQRS.Core.Events.Infrastructures
                     TimeStamp = DateTime.Now,
                     AggregateIdentifier = aggregateId,
                     //AggregateType = nameof(PostAggregate),
-                    AggregateType = nameof(TAggregateRoot),
+                    AggregateType = typeof(TAggregateRoot).Name,
                     Version = version,
                     EventType = eventType,
                     EventData = @event
@@ -70,7 +70,6 @@ namespace CQRS.Core.Events.Infrastructures
 
                 await eventStoreRepository.SaveAsync(eventModel);
 
-                //var topic = Environment.GetEnvironmentVariable("KAFKA_TOPIC");
                 await eventProducer.ProduceAsync(eventBusConfig.Topic, @event);
             }
         }
