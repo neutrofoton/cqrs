@@ -1,7 +1,9 @@
 
 using Confluent.Kafka;
 using CQRS.Core.Events;
+using CQRS.Core.Events.Config;
 using CQRS.Core.Events.Consumers;
+using CQRS.Core.Events.Handlers;
 using CQRS.Core.Kafka.Events.Consumers;
 using CQRS.Core.Queries.Infrastructures;
 using Microsoft.EntityFrameworkCore;
@@ -27,8 +29,18 @@ if (env.Equals("Development.PostgreSQL"))
 }
 else
 {
-    configureDbContext = o => o.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
+    string sqlConn = builder.Configuration.GetConnectionString("SqlServer");
+    configureDbContext = o => o.UseLazyLoadingProxies().UseSqlServer(sqlConn);
 }
+
+builder.Services.AddSingleton(serviceProvider =>
+{
+    var topic = Environment.GetEnvironmentVariable("KAFKA_TOPIC");
+    return new EventBusConfig()
+    {
+        Topic = topic,
+    };
+});
 
 builder.Services.AddDbContext<DatabaseContext>(configureDbContext);
 builder.Services.AddSingleton<DatabaseContextFactory>(new DatabaseContextFactory(configureDbContext));
@@ -40,7 +52,8 @@ dataContext.Database.EnsureCreated();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<IQueryHandler, QueryHandler>();
-builder.Services.AddScoped<Social.Query.Infra.Handlers.ISocialEventTargetHandler, Social.Query.Infra.Handlers.SocialEventTargetHandler>();
+//builder.Services.AddScoped<Social.Query.Infra.Handlers.ISocialEventTargetHandler, Social.Query.Infra.Handlers.SocialEventTargetHandler>();
+builder.Services.AddScoped<IEventTargetHandler, Social.Query.Infra.Handlers.SocialEventTargetHandler>();
 builder.Services.Configure<ConsumerConfig>(builder.Configuration.GetSection(nameof(ConsumerConfig)));
 builder.Services.AddScoped<IEventConsumer, KafkaEventConsumer>();
 
