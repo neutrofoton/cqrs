@@ -7,13 +7,12 @@ using CQRS.Core.Events.Handlers;
 using CQRS.Core.Events.Infrastructures;
 using CQRS.Core.Events.Producers;
 using CQRS.Core.Kafka.Events.Producers;
+using CQRS.Core.MongoDB.Command.Infra.Repositories;
 using CQRS.Core.MongoDB.Config;
 using MongoDB.Bson.Serialization;
 using Social.Command.Api.Commands;
 using Social.Command.Api.Handlers;
 using Social.Command.Domain.Aggregates;
-using Social.Command.Infra.Repositories;
-using Social.Command.Infra.Stores;
 using Social.Shared.Events;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -41,17 +40,22 @@ BsonClassMap.RegisterClassMap<PostRemovedEvent>();
 builder.Services.Configure<MongoDbConfig>(builder.Configuration.GetSection(nameof(MongoDbConfig)));
 builder.Services.Configure<ProducerConfig>(builder.Configuration.GetSection(nameof(ProducerConfig)));
 
-
-builder.Services.AddScoped<ISocialEventStoreRepository, SocialEventStoreRepository>();
+//mongo event store
+builder.Services.AddScoped<IEventStoreRepository<Guid>, MongoEventStoreRepository<Guid>>();
+//kafka event bus.
 builder.Services.AddScoped<IEventProducer, KafkaEventProducer>();
-builder.Services.AddScoped<IEventStore<PostAggregate,Guid>, SocialEventStore>();
+
+builder.Services.AddScoped<IEventStore<PostAggregate, Guid>, EventStore<PostAggregate, Guid>>();
 builder.Services.AddScoped<IEventSourcingHandler<PostAggregate,Guid>, EventSourcingHandler<PostAggregate,Guid>>();
-builder.Services.AddScoped<ICommandHandler, CommandHandler>();
+
 
 
 // register command handler methods
+builder.Services.AddScoped<ICommandHandler, CommandHandler>();
 var commandHandler = builder.Services.BuildServiceProvider().GetRequiredService<ICommandHandler>();
+
 var dispatcher = new CommandDispatcher();
+
 dispatcher.RegisterHandler<NewPostCommand>(commandHandler.HandleAsync);
 dispatcher.RegisterHandler<EditMessageCommand>(commandHandler.HandleAsync);
 dispatcher.RegisterHandler<LikePostCommand>(commandHandler.HandleAsync);
@@ -60,6 +64,7 @@ dispatcher.RegisterHandler<EditCommentCommand>(commandHandler.HandleAsync);
 dispatcher.RegisterHandler<RemoveCommentCommand>(commandHandler.HandleAsync);
 dispatcher.RegisterHandler<DeletePostCommand>(commandHandler.HandleAsync);
 dispatcher.RegisterHandler<RestoreReadDbCommand>(commandHandler.HandleAsync);
+
 builder.Services.AddSingleton<ICommandDispatcher>(_ => dispatcher);
 
 builder.Services.AddControllers();

@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace CQRS.Core.MongoDB.Command.Infra.Repositories
 {
-    public abstract class EventStoreRepository<TId> : IEventStoreRepository<TId>
+    public class MongoEventStoreRepository<TId> : IEventStoreRepository<TId>
     {
         private readonly IMongoCollection<EventModel<TId>> _eventStoreCollection;
 
-        public EventStoreRepository(IOptions<MongoDbConfig> config)
+        public MongoEventStoreRepository(IOptions<MongoDbConfig> config)
         {
             var mongoClient = new MongoClient(config.Value.ConnectionString);
             var mongoDatabase = mongoClient.GetDatabase(config.Value.Database);

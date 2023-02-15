@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CQRS.Core.Events.Infrastructures
 {
-    public abstract class EventStore<TAggregateRoot,TId> : IEventStore<TAggregateRoot, TId> where TAggregateRoot: AggregateRoot<TId>
+    public class EventStore<TAggregateRoot,TId> : IEventStore<TAggregateRoot, TId> where TAggregateRoot: AggregateRoot<TId>
     {
         private readonly IEventStoreRepository<TId> eventStoreRepository;
         private readonly IEventProducer eventProducer;
