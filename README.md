@@ -120,7 +120,7 @@ dotnet add Social.Query/Social.Query.Api/Social.Query.Api.csproj reference Socia
 
 ## COMMAND:
 #### API
-<code>Controller</code> -> <code>CommandDispatcher</code> -> <code>CommandHandler</code> -> <code>EventSourcingHandler<PostAggregate,Guid> [AgregateRoot]</code>-> <code>EventStore<PostAggregate,Guid></code>
+<code>Controller</code> -> <code>CommandDispatcher</code> -> <code>CommandHandler</code> -> <code>EventSourcingHandler<PostAggregate,Guid></code>-> <code>EventStore<PostAggregate,Guid></code>
 
 
 ## QUERY:
