@@ -59,6 +59,7 @@ namespace Social.Query.Infra.Repositories
             using DatabaseContext context = _contextFactory.CreateDbContext();
             return await context.Posts.AsNoTracking()
                     .Include(i => i.Comments).AsNoTracking()
+                    .OrderByDescending(x => x.DatePosted)
                     .ToListAsync();
         }
 

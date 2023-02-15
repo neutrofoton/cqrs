@@ -42,34 +42,37 @@ builder.Services.AddSingleton(serviceProvider =>
     };
 });
 
+builder.Services.Configure<ConsumerConfig>(builder.Configuration.GetSection(nameof(ConsumerConfig)));
+builder.Services.AddSingleton<JsonConverter<BaseEvent>>(new EventJsonConverter());
+
+//database configuration
 builder.Services.AddDbContext<DatabaseContext>(configureDbContext);
 builder.Services.AddSingleton<DatabaseContextFactory>(new DatabaseContextFactory(configureDbContext));
 
-// create database and tables
 var dataContext = builder.Services.BuildServiceProvider().GetRequiredService<DatabaseContext>();
-dataContext.Database.EnsureCreated();
+dataContext.Database.EnsureCreated();// create database and tables
 
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
-builder.Services.AddScoped<IQueryHandler, QueryHandler>();
+
 builder.Services.AddScoped<IEventListenerHandler, SocialEventListenerHandler>();
-builder.Services.Configure<ConsumerConfig>(builder.Configuration.GetSection(nameof(ConsumerConfig)));
 builder.Services.AddScoped<IEventConsumer, KafkaEventConsumer>();
 
-builder.Services.AddSingleton<JsonConverter<BaseEvent>>(new EventJsonConverter());
-
 // register query handler methods
+builder.Services.AddScoped<IQueryHandler, QueryHandler>();
 var queryHandler = builder.Services.BuildServiceProvider().GetRequiredService<IQueryHandler>();
-var dispatcher = new QueryDispatcher<PostEntity>();
+builder.Services.AddScoped<IQueryDispatcher<PostEntity>>(sp =>
+{  
+    var dispatcher = new QueryDispatcher<PostEntity>();
+    dispatcher.RegisterHandler<FindAllPostsQuery>(queryHandler.HandleAsync);
+    dispatcher.RegisterHandler<FindPostByIdQuery>(queryHandler.HandleAsync);
+    dispatcher.RegisterHandler<FindPostsByAuthorQuery>(queryHandler.HandleAsync);
+    dispatcher.RegisterHandler<FindPostsWithCommentsQuery>(queryHandler.HandleAsync);
+    dispatcher.RegisterHandler<FindPostsWithLikesQuery>(queryHandler.HandleAsync);
 
-dispatcher.RegisterHandler<FindAllPostsQuery>(queryHandler.HandleAsync);
-dispatcher.RegisterHandler<FindPostByIdQuery>(queryHandler.HandleAsync);
-dispatcher.RegisterHandler<FindPostsByAuthorQuery>(queryHandler.HandleAsync);
-dispatcher.RegisterHandler<FindPostsWithCommentsQuery>(queryHandler.HandleAsync);
-dispatcher.RegisterHandler<FindPostsWithLikesQuery>(queryHandler.HandleAsync);
-
-builder.Services.AddScoped<IQueryDispatcher<PostEntity>>(_ => dispatcher);
+    return dispatcher;
+});
 
 builder.Services.AddControllers();
 builder.Services.AddHostedService<ConsumerHostedService>();

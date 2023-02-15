@@ -53,19 +53,22 @@ builder.Services.AddScoped<IEventSourcingHandler<PostAggregate,Guid>, EventSourc
 // register command handler methods
 builder.Services.AddScoped<ICommandHandler, CommandHandler>();
 var commandHandler = builder.Services.BuildServiceProvider().GetRequiredService<ICommandHandler>();
+builder.Services.AddSingleton<ICommandDispatcher>((sp) =>
+{
+    //var commandHandler = sp.GetRequiredService<ICommandHandler>();
+    var dispatcher = new CommandDispatcher();
 
-var dispatcher = new CommandDispatcher();
+    dispatcher.RegisterHandler<NewPostCommand>(commandHandler.HandleAsync);
+    dispatcher.RegisterHandler<EditMessageCommand>(commandHandler.HandleAsync);
+    dispatcher.RegisterHandler<LikePostCommand>(commandHandler.HandleAsync);
+    dispatcher.RegisterHandler<AddCommentCommand>(commandHandler.HandleAsync);
+    dispatcher.RegisterHandler<EditCommentCommand>(commandHandler.HandleAsync);
+    dispatcher.RegisterHandler<RemoveCommentCommand>(commandHandler.HandleAsync);
+    dispatcher.RegisterHandler<DeletePostCommand>(commandHandler.HandleAsync);
+    dispatcher.RegisterHandler<RestoreReadDbCommand>(commandHandler.HandleAsync);
 
-dispatcher.RegisterHandler<NewPostCommand>(commandHandler.HandleAsync);
-dispatcher.RegisterHandler<EditMessageCommand>(commandHandler.HandleAsync);
-dispatcher.RegisterHandler<LikePostCommand>(commandHandler.HandleAsync);
-dispatcher.RegisterHandler<AddCommentCommand>(commandHandler.HandleAsync);
-dispatcher.RegisterHandler<EditCommentCommand>(commandHandler.HandleAsync);
-dispatcher.RegisterHandler<RemoveCommentCommand>(commandHandler.HandleAsync);
-dispatcher.RegisterHandler<DeletePostCommand>(commandHandler.HandleAsync);
-dispatcher.RegisterHandler<RestoreReadDbCommand>(commandHandler.HandleAsync);
-
-builder.Services.AddSingleton<ICommandDispatcher>(_ => dispatcher);
+    return dispatcher;
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
