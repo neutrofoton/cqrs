@@ -7,7 +7,7 @@ using Social.Shared.Events;
 
 namespace Social.Query.Infra.Handlers
 {
-    public interface ISocialEventTargetHandler : IEventTargetHandler
+    public interface ISocialEventListenerHandler : IEventListenerHandler
     {
         Task On(PostCreatedEvent @event);
         Task On(MessageUpdatedEvent @event);

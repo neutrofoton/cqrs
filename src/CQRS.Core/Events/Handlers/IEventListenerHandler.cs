@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CQRS.Core.Events.Handlers
 {
-    public interface IEventTargetHandler
+    public interface IEventListenerHandler
     {
     }
 }

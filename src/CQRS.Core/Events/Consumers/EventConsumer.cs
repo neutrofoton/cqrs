@@ -9,13 +9,13 @@ namespace CQRS.Core.Events.Consumers
 {
     public abstract class EventConsumer : IEventConsumer
     {
-        private readonly IEventTargetHandler _eventHandler;
-        public EventConsumer(IEventTargetHandler eventHandler)
+        private readonly IEventListenerHandler _eventHandler;
+        public EventConsumer(IEventListenerHandler eventHandler)
         {
             _eventHandler = eventHandler;
         }
 
-        public IEventTargetHandler EventHandler => _eventHandler;
+        public IEventListenerHandler EventHandler => _eventHandler;
 
         public abstract void Consume(string topic);
     }

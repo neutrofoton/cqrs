@@ -1,13 +1,14 @@
+﻿using CQRS.Core.Events;
+using Social.Shared.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
+using System.Text;
 using System.Text.Json.Serialization;
+using System.Text.Json;
 using System.Threading.Tasks;
-using CQRS.Core.Events;
-using Social.Shared.Events;
 
-namespace Social.Query.Infra.Converters
+namespace Social.Shared.Converters
 {
     public class EventJsonConverter : JsonConverter<BaseEvent>
     {
