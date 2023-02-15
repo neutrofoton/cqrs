@@ -51,6 +51,7 @@ dataContext.Database.EnsureCreated();
 
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+
 builder.Services.AddScoped<IQueryHandler, QueryHandler>();
 //builder.Services.AddScoped<Social.Query.Infra.Handlers.ISocialEventTargetHandler, Social.Query.Infra.Handlers.SocialEventTargetHandler>();
 builder.Services.AddScoped<IEventTargetHandler, Social.Query.Infra.Handlers.SocialEventTargetHandler>();
@@ -61,12 +62,14 @@ builder.Services.AddSingleton<JsonConverter<BaseEvent>>(new EventJsonConverter()
 
 // register query handler methods
 var queryHandler = builder.Services.BuildServiceProvider().GetRequiredService<IQueryHandler>();
-var dispatcher = new SocialQueryDispatcher();
+var dispatcher = new QueryDispatcher<PostEntity>(); //new SocialQueryDispatcher();
+
 dispatcher.RegisterHandler<FindAllPostsQuery>(queryHandler.HandleAsync);
 dispatcher.RegisterHandler<FindPostByIdQuery>(queryHandler.HandleAsync);
 dispatcher.RegisterHandler<FindPostsByAuthorQuery>(queryHandler.HandleAsync);
 dispatcher.RegisterHandler<FindPostsWithCommentsQuery>(queryHandler.HandleAsync);
 dispatcher.RegisterHandler<FindPostsWithLikesQuery>(queryHandler.HandleAsync);
+
 builder.Services.AddScoped<IQueryDispatcher<PostEntity>>(_ => dispatcher);
 
 builder.Services.AddControllers();

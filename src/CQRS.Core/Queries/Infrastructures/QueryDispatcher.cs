@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CQRS.Core.Queries.Infrastructures
 {
-    public abstract class QueryDispatcher<TEntity> : IQueryDispatcher<TEntity>
+    public class QueryDispatcher<TEntity> : IQueryDispatcher<TEntity>
     {
         private readonly Dictionary<Type, Func<BaseQuery, Task<List<TEntity>>>> _handlers = new();
 

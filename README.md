@@ -116,6 +116,21 @@ dotnet add Social.Query/Social.Query.Api/Social.Query.Api.csproj reference Socia
 dotnet add Social.Query/Social.Query.Api/Social.Query.Api.csproj reference Social.Query/Social.Query.Infra/Social.Query.Infra.csproj
 ```
 
+# Flow Process
+
+## COMMAND:
+#### API
+<code>Controller</code> -> <code>CommandDispatcher</code> -> <code>CommandHandler</code> -> <code>EventSourcingHandler<PostAggregate,Guid> [AgregateRoot]</code>-> <code>EventStore<PostAggregate,Guid></code>
+
+
+## QUERY:
+#### API
+<code>Controller</code>-><code>QueryDispatcher<PostEntity></code>-><code>QueryHandler.HandleAsync</code>-> <code>PostRepository/CommentRepository</code>-> return
+
+#### Hosted Service
+<code>ConsumerHostedService</code>-><code>KafkaEventConsumer</code>-><code>SocialEventTargetHandler</code>-><code>PostRepository/CommentRepository</code>
+
+
 # Reference
 1. https://hub.docker.com/_/microsoft-mssql-server
 2. 
