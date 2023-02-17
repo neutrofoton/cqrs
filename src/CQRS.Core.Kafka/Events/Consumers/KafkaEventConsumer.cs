@@ -44,14 +44,10 @@ namespace CQRS.Core.Kafka.Events.Consumers
 
                 var options = new JsonSerializerOptions { Converters = { _jsonConverter } };
                 var @event = JsonSerializer.Deserialize<EventMessage>(consumeResult.Message.Value, options);
-                var handlerMethod = EventHandler.GetType().GetMethod("On", new Type[] { @event.GetType() });
 
-                if (handlerMethod == null)
-                {
-                    throw new ArgumentNullException(nameof(handlerMethod), "Could not find event handler method!");
-                }
+                ExecuteEventHandler(@event);
 
-                handlerMethod.Invoke(EventHandler, new object[] { @event });
+
                 consumer.Commit(consumeResult);
             }
         }

@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CQRS.Core.Events.Handlers;
 using Social.Query.Domain.Entities;
 using Social.Query.Domain.Repositories;
 using Social.Shared.Events;
 
 namespace Social.Query.Infra.Handlers
 {
-    public class SocialEventListenerHandler : ISocialEventListenerHandler
+    public class SocialEventListenerHandler : EventListenerHandler, ISocialEventListenerHandler
     {
         private readonly IPostRepository _postRepository;
         private readonly ICommentRepository _commentRepository;

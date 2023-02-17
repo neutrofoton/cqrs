@@ -31,8 +31,6 @@ namespace CQRS.Core.Kafka.Events.Consumers
             using (IServiceScope scope = serviceProvider.CreateScope())
             {
                 var eventConsumer = scope.ServiceProvider.GetRequiredService<IEventConsumer>();
-                //var topic = Environment.GetEnvironmentVariable("KAFKA_TOPIC");
-
                 Task.Run(() => eventConsumer.Consume(eventBusConfig.Topic), cancellationToken);
             }
 

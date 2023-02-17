@@ -8,5 +8,6 @@ namespace CQRS.Core.Events.Handlers
 {
     public interface IEventListenerHandler
     {
+        object Process(EventMessage @event);
     }
 }
