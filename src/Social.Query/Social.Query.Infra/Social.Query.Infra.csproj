@@ -2,7 +2,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\CQRS.Core\CQRS.Core.csproj" />
-    <ProjectReference Include="..\..\CQRS.Core.SqlServer\CQRS.Core.SqlServer.csproj" />
     <ProjectReference Include="..\..\Social.Shared\Social.Shared.csproj" />
     <ProjectReference Include="..\Social.Query.Domain\Social.Query.Domain.csproj" />
     

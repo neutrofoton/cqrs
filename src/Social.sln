@@ -3,39 +3,34 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRS.Core", "CQRS.Core\CQRS.Core.csproj", "{26B96A8B-28D5-463C-BE5F-61072ADD57B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CQRS.Core", "CQRS.Core\CQRS.Core.csproj", "{26B96A8B-28D5-463C-BE5F-61072ADD57B1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Social.Command", "Social.Command", "{DD8EDF8D-BFFE-42EA-9629-6C434D95F292}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Social.Command.Api", "Social.Command\Social.Command.Api\Social.Command.Api.csproj", "{43D13DD6-5045-457C-A259-20CC33C0FBA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Social.Command.Api", "Social.Command\Social.Command.Api\Social.Command.Api.csproj", "{43D13DD6-5045-457C-A259-20CC33C0FBA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Social.Command.Domain", "Social.Command\Social.Command.Domain\Social.Command.Domain.csproj", "{023778ED-6496-4460-9C87-0C3184A89241}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Social.Command.Domain", "Social.Command\Social.Command.Domain\Social.Command.Domain.csproj", "{023778ED-6496-4460-9C87-0C3184A89241}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Social.Command.Infra", "Social.Command\Social.Command.Infra\Social.Command.Infra.csproj", "{899FDD05-27FE-44FB-B5BD-9F03E6302D02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Social.Command.Infra", "Social.Command\Social.Command.Infra\Social.Command.Infra.csproj", "{899FDD05-27FE-44FB-B5BD-9F03E6302D02}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Social.Query", "Social.Query", "{87BCEB62-7062-4647-B721-77BEFF11EDE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Social.Query.Domain", "Social.Query\Social.Query.Domain\Social.Query.Domain.csproj", "{B9FCC70A-00DC-4699-AB7B-1EB2ECDDDCAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Social.Query.Domain", "Social.Query\Social.Query.Domain\Social.Query.Domain.csproj", "{B9FCC70A-00DC-4699-AB7B-1EB2ECDDDCAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Social.Query.Infra", "Social.Query\Social.Query.Infra\Social.Query.Infra.csproj", "{E92DF7AD-70D6-4D83-A343-F46EA4CA3CBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Social.Query.Infra", "Social.Query\Social.Query.Infra\Social.Query.Infra.csproj", "{E92DF7AD-70D6-4D83-A343-F46EA4CA3CBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Social.Query.Api", "Social.Query\Social.Query.Api\Social.Query.Api.csproj", "{ACA3DA6C-4350-450A-8DFB-6D9645DFE9C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Social.Query.Api", "Social.Query\Social.Query.Api\Social.Query.Api.csproj", "{ACA3DA6C-4350-450A-8DFB-6D9645DFE9C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Social.Shared", "Social.Shared\Social.Shared.csproj", "{2DA41E6E-7117-4B3A-8975-6C95112EB172}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Social.Shared", "Social.Shared\Social.Shared.csproj", "{2DA41E6E-7117-4B3A-8975-6C95112EB172}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRS.Core.MongoDB", "CQRS.Core.MongoDB\CQRS.Core.MongoDB.csproj", "{CF863510-570F-4BDF-B16C-1C01D4D12AA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CQRS.Core.MongoDB", "CQRS.Core.MongoDB\CQRS.Core.MongoDB.csproj", "{CF863510-570F-4BDF-B16C-1C01D4D12AA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRS.Core.Kafka", "CQRS.Core.Kafka\CQRS.Core.Kafka.csproj", "{9BA5CAA7-2BCB-4DFF-9710-CD0EC2AD43F8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRS.Core.SqlServer", "CQRS.Core.SqlServer\CQRS.Core.SqlServer.csproj", "{22344DFE-D6A2-42EB-970C-3D2BA6C1D435}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CQRS.Core.Kafka", "CQRS.Core.Kafka\CQRS.Core.Kafka.csproj", "{9BA5CAA7-2BCB-4DFF-9710-CD0EC2AD43F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{26B96A8B-28D5-463C-BE5F-61072ADD57B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -78,10 +73,9 @@ Global
 		{9BA5CAA7-2BCB-4DFF-9710-CD0EC2AD43F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BA5CAA7-2BCB-4DFF-9710-CD0EC2AD43F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BA5CAA7-2BCB-4DFF-9710-CD0EC2AD43F8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{22344DFE-D6A2-42EB-970C-3D2BA6C1D435}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{22344DFE-D6A2-42EB-970C-3D2BA6C1D435}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{22344DFE-D6A2-42EB-970C-3D2BA6C1D435}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{22344DFE-D6A2-42EB-970C-3D2BA6C1D435}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{43D13DD6-5045-457C-A259-20CC33C0FBA4} = {DD8EDF8D-BFFE-42EA-9629-6C434D95F292}
@@ -90,5 +84,8 @@ Global
 		{B9FCC70A-00DC-4699-AB7B-1EB2ECDDDCAB} = {87BCEB62-7062-4647-B721-77BEFF11EDE9}
 		{E92DF7AD-70D6-4D83-A343-F46EA4CA3CBC} = {87BCEB62-7062-4647-B721-77BEFF11EDE9}
 		{ACA3DA6C-4350-450A-8DFB-6D9645DFE9C8} = {87BCEB62-7062-4647-B721-77BEFF11EDE9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {40040E23-8F89-4AE6-B97A-AF2CE9F74114}
 	EndGlobalSection
 EndGlobal
