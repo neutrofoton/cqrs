@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace Social.Shared.Converters
 {
-    public class EventJsonConverter : JsonConverter<BaseEvent>
+    public class EventJsonConverter : JsonConverter<EventMessage>
     {
         public override bool CanConvert(Type type)
         {
-            return type.IsAssignableFrom(typeof(BaseEvent));
+            return type.IsAssignableFrom(typeof(EventMessage));
         }
 
-        public override BaseEvent Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        public override EventMessage Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             if (!JsonDocument.TryParseValue(ref reader, out var doc))
             {
@@ -45,7 +45,7 @@ namespace Social.Shared.Converters
             };
         }
 
-        public override void Write(Utf8JsonWriter writer, BaseEvent value, JsonSerializerOptions options)
+        public override void Write(Utf8JsonWriter writer, EventMessage value, JsonSerializerOptions options)
         {
             throw new NotImplementedException();
         }

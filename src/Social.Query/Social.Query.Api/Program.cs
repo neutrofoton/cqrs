@@ -43,7 +43,7 @@ builder.Services.AddSingleton(serviceProvider =>
 });
 
 builder.Services.Configure<ConsumerConfig>(builder.Configuration.GetSection(nameof(ConsumerConfig)));
-builder.Services.AddSingleton<JsonConverter<BaseEvent>>(new EventJsonConverter());
+builder.Services.AddSingleton<JsonConverter<EventMessage>>(new EventJsonConverter());
 
 //database configuration
 builder.Services.AddDbContext<DatabaseContext>(configureDbContext);

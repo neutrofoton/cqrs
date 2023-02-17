@@ -6,7 +6,7 @@ using CQRS.Core.Commands;
 
 namespace Social.Command.Api.Commands
 {
-    public class NewPostCommand : BaseCommand
+    public class NewPostCommand : CommandMessage
     {
         public string Author { get; set; }
         public string Message { get; set; }

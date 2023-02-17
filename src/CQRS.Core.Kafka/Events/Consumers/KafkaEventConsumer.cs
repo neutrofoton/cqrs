@@ -16,11 +16,11 @@ namespace CQRS.Core.Kafka.Events.Consumers
     public class KafkaEventConsumer : EventConsumer
     {
         private readonly ConsumerConfig _config;
-        private readonly JsonConverter<BaseEvent> _jsonConverter;
+        private readonly JsonConverter<EventMessage> _jsonConverter;
         public KafkaEventConsumer(
             IEventListenerHandler eventHandler,
             IOptions<ConsumerConfig> config,
-            JsonConverter<BaseEvent> jsonConverter
+            JsonConverter<EventMessage> jsonConverter
             ) : base(eventHandler)
         {
             _config = config.Value;
@@ -43,7 +43,7 @@ namespace CQRS.Core.Kafka.Events.Consumers
                 if (consumeResult?.Message == null) continue;
 
                 var options = new JsonSerializerOptions { Converters = { _jsonConverter } };
-                var @event = JsonSerializer.Deserialize<BaseEvent>(consumeResult.Message.Value, options);
+                var @event = JsonSerializer.Deserialize<EventMessage>(consumeResult.Message.Value, options);
                 var handlerMethod = EventHandler.GetType().GetMethod("On", new Type[] { @event.GetType() });
 
                 if (handlerMethod == null)

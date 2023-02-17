@@ -6,9 +6,9 @@ using CQRS.Core.Messages;
 
 namespace CQRS.Core.Events
 {
-    public abstract class BaseEvent : Message
+    public abstract class EventMessage : Message
     {
-        protected BaseEvent(string type)
+        protected EventMessage(string type)
         {
             Type = type;
         }

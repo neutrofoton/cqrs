@@ -6,7 +6,7 @@ using CQRS.Core.Events;
 
 namespace Social.Shared.Events
 {
-    public class CommentRemovedEvent : BaseEvent
+    public class CommentRemovedEvent : EventMessage
     {
         public CommentRemovedEvent() : base(nameof(CommentRemovedEvent))
         {

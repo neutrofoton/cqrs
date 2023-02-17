@@ -7,9 +7,9 @@ namespace CQRS.Core.Commands.Infrastructures
 {
     public class CommandDispatcher : ICommandDispatcher
     {
-        private readonly Dictionary<Type, Func<BaseCommand, Task>> _handlers = new();
+        private readonly Dictionary<Type, Func<CommandMessage, Task>> _handlers = new();
 
-        public void RegisterHandler<T>(Func<T, Task> handler) where T : BaseCommand
+        public void RegisterHandler<T>(Func<T, Task> handler) where T : CommandMessage
         {
             if (_handlers.ContainsKey(typeof(T)))
             {
@@ -19,9 +19,9 @@ namespace CQRS.Core.Commands.Infrastructures
             _handlers.Add(typeof(T), x => handler((T)x));
         }
 
-        public async Task SendAsync(BaseCommand command)
+        public async Task SendAsync(CommandMessage command)
         {
-            if (_handlers.TryGetValue(command.GetType(), out Func<BaseCommand, Task> handler))
+            if (_handlers.TryGetValue(command.GetType(), out Func<CommandMessage, Task> handler))
             {
                 await handler(command);
             }

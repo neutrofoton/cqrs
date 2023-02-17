@@ -11,7 +11,7 @@ namespace CQRS.Core.Domains
         protected TId _id;
         private bool _active;
         
-        private readonly List<BaseEvent> _changes = new();
+        private readonly List<EventMessage> _changes = new();
 
         public TId Id
         {
@@ -22,7 +22,7 @@ namespace CQRS.Core.Domains
         
         public bool Active { get => _active; set => _active = value; }
 
-        public IEnumerable<BaseEvent> GetUncommittedChanges()
+        public IEnumerable<EventMessage> GetUncommittedChanges()
         {
             return _changes;
         }
@@ -32,7 +32,7 @@ namespace CQRS.Core.Domains
             _changes.Clear();
         }
 
-        private void ApplyChange(BaseEvent @event, bool isNew)
+        private void ApplyChange(EventMessage @event, bool isNew)
         {
             var method = this.GetType().GetMethod("Apply", new Type[] { @event.GetType() });
 
@@ -49,12 +49,12 @@ namespace CQRS.Core.Domains
             }
         }
 
-        protected void RaiseEvent(BaseEvent @event)
+        protected void RaiseEvent(EventMessage @event)
         {
             ApplyChange(@event, true);
         }
 
-        public void ReplayEvents(IEnumerable<BaseEvent> events)
+        public void ReplayEvents(IEnumerable<EventMessage> events)
         {
             foreach (var @event in events)
             {

@@ -8,7 +8,7 @@ namespace CQRS.Core.Commands.Infrastructures
 {
     public interface ICommandDispatcher
     {
-        void RegisterHandler<T>(Func<T, Task> handler) where T : BaseCommand;
-        Task SendAsync(BaseCommand command);
+        void RegisterHandler<T>(Func<T, Task> handler) where T : CommandMessage;
+        Task SendAsync(CommandMessage command);
     }
 }

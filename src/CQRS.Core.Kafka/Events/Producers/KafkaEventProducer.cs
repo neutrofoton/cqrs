@@ -19,7 +19,7 @@ namespace CQRS.Core.Kafka.Events.Producers
             _config = config.Value;
         }
 
-        public async Task ProduceAsync<T>(string topic, T @event) where T : BaseEvent
+        public async Task ProduceAsync<T>(string topic, T @event) where T : EventMessage
         {
             using var producer = new ProducerBuilder<string, string>(_config)
                 .SetKeySerializer(Serializers.Utf8)

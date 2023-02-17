@@ -27,7 +27,7 @@ builder.Services.AddSingleton(serviceProvider =>
 });
 
 
-BsonClassMap.RegisterClassMap<BaseEvent>();
+BsonClassMap.RegisterClassMap<EventMessage>();
 BsonClassMap.RegisterClassMap<PostCreatedEvent>();
 BsonClassMap.RegisterClassMap<MessageUpdatedEvent>();
 BsonClassMap.RegisterClassMap<PostLikedEvent>();

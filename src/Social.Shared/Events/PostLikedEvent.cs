@@ -6,7 +6,7 @@ using CQRS.Core.Events;
 
 namespace Social.Shared.Events
 {
-    public class PostLikedEvent : BaseEvent
+    public class PostLikedEvent : EventMessage
     {
         public PostLikedEvent() : base(nameof(PostLikedEvent))
         {

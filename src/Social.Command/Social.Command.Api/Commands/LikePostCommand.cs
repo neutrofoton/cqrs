@@ -6,7 +6,7 @@ using CQRS.Core.Commands;
 
 namespace Social.Command.Api.Commands
 {
-   public class LikePostCommand : BaseCommand
+   public class LikePostCommand : CommandMessage
     {
 
     }

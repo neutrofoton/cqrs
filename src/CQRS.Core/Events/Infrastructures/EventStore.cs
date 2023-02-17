@@ -33,7 +33,7 @@ namespace CQRS.Core.Events.Infrastructures
             return eventStream.Select(x => x.AggregateIdentifier).Distinct().ToList();
         }
 
-        public async Task<List<BaseEvent>> GetEventsAsync(TId aggregateId)
+        public async Task<List<EventMessage>> GetEventsAsync(TId aggregateId)
         {
             var eventStream = await eventStoreRepository.FindByAggregateId(aggregateId);
 
@@ -43,7 +43,7 @@ namespace CQRS.Core.Events.Infrastructures
             return eventStream.OrderBy(x => x.Version).Select(x => x.EventData).ToList();
         }
 
-        public async Task SaveEventsAsync(TId aggregateId, IEnumerable<BaseEvent> events, int expectedVersion)
+        public async Task SaveEventsAsync(TId aggregateId, IEnumerable<EventMessage> events, int expectedVersion)
         {
             var eventStream = await eventStoreRepository.FindByAggregateId(aggregateId);
 

@@ -6,7 +6,7 @@ using CQRS.Core.Commands;
 
 namespace Social.Command.Api.Commands
 {
-    public class RemoveCommentCommand : BaseCommand
+    public class RemoveCommentCommand : CommandMessage
     {
         public Guid CommentId { get; set; }
         public string Username { get; set; }

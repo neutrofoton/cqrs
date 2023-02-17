@@ -6,7 +6,7 @@ using CQRS.Core.Commands;
 
 namespace Social.Command.Api.Commands
 {
-    public class DeletePostCommand : BaseCommand
+    public class DeletePostCommand : CommandMessage
     {
         public string Username { get; set; }
     }
