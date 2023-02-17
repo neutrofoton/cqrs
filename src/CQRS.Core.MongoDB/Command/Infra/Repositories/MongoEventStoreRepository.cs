@@ -1,6 +1,7 @@
 ﻿using CQRS.Core.Domains;
 using CQRS.Core.Events;
 using CQRS.Core.MongoDB.Config;
+using CQRS.Core.MongoDB.Events;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using System;
@@ -38,7 +39,7 @@ namespace CQRS.Core.MongoDB.Command.Infra.Repositories
 
         public async Task SaveAsync(EventModel<TId> @event)
         {
-            await _eventStoreCollection.InsertOneAsync(@event).ConfigureAwait(false);
+            await _eventStoreCollection.InsertOneAsync(new MongoEventModel<TId>(@event)).ConfigureAwait(false);
         }
     }
 }

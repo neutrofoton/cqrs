@@ -61,7 +61,6 @@ namespace CQRS.Core.Events.Infrastructures
                 {
                     TimeStamp = DateTime.Now,
                     AggregateIdentifier = aggregateId,
-                    //AggregateType = nameof(PostAggregate),
                     AggregateType = typeof(TAggregateRoot).Name,
                     Version = version,
                     EventType = eventType,
