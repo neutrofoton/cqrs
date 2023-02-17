@@ -14,19 +14,25 @@ namespace CQRS.Core.MongoDB.Command.Infra.Repositories
 {
     public class MongoEventStoreRepository<TId> : IEventStoreRepository<TId>
     {
-        private readonly IMongoCollection<EventModel<TId>> _eventStoreCollection;
+        private readonly IMongoCollection<MongoEventModel<TId>> _eventStoreCollection;
 
         public MongoEventStoreRepository(IOptions<MongoDbConfig> config)
         {
             var mongoClient = new MongoClient(config.Value.ConnectionString);
             var mongoDatabase = mongoClient.GetDatabase(config.Value.Database);
 
-            _eventStoreCollection = mongoDatabase.GetCollection<EventModel<TId>>(config.Value.Collection);
+            _eventStoreCollection = mongoDatabase.GetCollection<MongoEventModel<TId>>(config.Value.Collection);
         }
 
         public async Task<List<EventModel<TId>>> FindAllAsync()
         {
-            return await _eventStoreCollection.Find(_ => true).ToListAsync().ConfigureAwait(false);
+            var founds = await _eventStoreCollection
+                .Find(_ => true)
+                .ToListAsync()
+                .ConfigureAwait(false);
+                
+
+            return founds.ConvertAll<EventModel<TId>>(x => x);
         }
 
         public async Task<List<EventModel<TId>>> FindByAggregateId(TId aggregateId)
@@ -34,7 +40,8 @@ namespace CQRS.Core.MongoDB.Command.Infra.Repositories
             if (aggregateId == null)
                 return null;
 
-            return await _eventStoreCollection.Find(x => x.AggregateIdentifier.Equals(aggregateId)).ToListAsync().ConfigureAwait(false);
+            var founds = await _eventStoreCollection.Find(x => x.AggregateIdentifier.Equals(aggregateId)).ToListAsync().ConfigureAwait(false);
+            return founds.ConvertAll<EventModel<TId>>(x => x);
         }
 
         public async Task SaveAsync(EventModel<TId> @event)
